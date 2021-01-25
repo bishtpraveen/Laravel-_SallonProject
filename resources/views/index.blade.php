@@ -97,7 +97,7 @@
 			</div>
 		</div>
 
-		<div class="text-wrapper">
+		<div class="text-wrapper" style="top:80% !important">
 			<h1>
 				For All Occasion <br>
 				HairStyle is a Must Try Fashion
@@ -107,14 +107,14 @@
 				incididunt ut labore et dolore
 				magna aliqua. Ut enim ad minim.
 			</p>
-			<div class="text-center">
+			<!-- <div class="text-center">
 				<a id="play-video" class="video-play-button" href="https://www.youtube.com/watch?v=-V5_GMuMzc8">
 					<span></span>
 				</a>
 			</div>
 			<div class="video-text">
 				<p>Watch Intro Video</p>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<!--================ End banner Area =================-->
@@ -151,8 +151,8 @@
 			<div class="row justify-content-center">
 				<div class="col-md-8 text-center">
 					<div class="section-title">
-						{{$shop_navbar_info}}
-						<h1>What We Can Do for You</h1>
+						<!-- {{$shop_navbar_info}}	 -->
+						<h1>Specilty we Provide</h1>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
 							magna aliqua ad minim veniam</p>
 					</div>
@@ -160,14 +160,14 @@
 			</div>
 			
 			<div class="row">
-			@foreach($shop_navbar_info as $shop_data => $images)
+			@foreach($distinct_images as $shop_data => $images)
 				<div class="col-lg-3 col-sm-6 col-md-3 mx-auto">
 					<div class="single-service">
 						@php
 						$dd = explode(',',$images)[0];
-						print_r($dd)
+						// print_r($dd)
 						@endphp
-						<img class="img-fluid" src='{{asset("home_shop_files/$dd")}}' style='width:100%;height: 340px;' alt="">
+						<img class="img-fluid" src='{{asset("shop_files/$dd")}}' style='width:100%;height: 340px;' alt="">
 						<h4><a href="{{url('special_service',[$shop_data])}}" style='color:white'>{{$shop_data}}</a></h4>
 					</div>
 				</div>
@@ -244,7 +244,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<!-- single member -->
+				
 				<div class="col-lg-4 col-md-4">
 					<div class="single-team-member">
 						<div class="member-img">
@@ -257,7 +257,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- single member -->
+				
 				<div class="col-lg-4 col-md-4">
 					<div class="single-team-member">
 						<div class="member-img">
@@ -269,7 +269,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- single member -->
+				
 				<div class="col-lg-4 col-md-4">
 					<div class="single-team-member">
 						<div class="member-img">
@@ -293,54 +293,9 @@
 			<div class="text-center">
 				<img class="quote-img" src="{{asset('barcut/img/testimonial/quote.png')}}" alt="">
 			</div>
-			<div class="testi-slider owl-carousel" data-slider-id="1">
-				
-				@foreach($comment_data as $comment_d)
-				<div class="item">
-					<div class="testi-item">
-						<h4>{{$comment_d->shop_name}}</h4>
-						<ul class="list">
-							<li><a href="#"><i class="fa fa-star"></i></a></li>
-							<li><a href="#"><i class="fa fa-star"></i></a></li>
-							<li><a href="#"><i class="fa fa-star"></i></a></li>
-							<li><a href="#"><i class="fa fa-star"></i></a></li>
-							<li><a href="#"><i class="fa fa-star"></i></a></li>
-						</ul>
-						<div class="wow fadeIn" data-wow-duration="1s">
-							<p>
-								{{$comment_d->message}}
-							</p>
-						</div>
-					</div>
-				</div>
-				@endforeach
-			</div>
-			<div class="owl-thumbs d-flex justify-content-center" data-slider-id="1">
-				<div class="owl-thumb-item">
-					<div>
-						<img class="img-fluid" src="{{asset('barcut/img/testimonial/t1.png')}}" alt="">
-					</div>
-					<div class="overlay overlay-grad"></div>
-				</div>
-				<div class="owl-thumb-item">
-					<div>
-						<img class="img-fluid" src="{{asset('barcut/img/testimonial/t2.png')}}" alt="">
-					</div>
-					<div class="overlay overlay-grad"></div>
-				</div>
-				<div class="owl-thumb-item">
-					<div>
-						<img class="img-fluid" src="{{asset('barcut/img/testimonial/t3.png')}}" alt="">
-					</div>
-					<div class="overlay overlay-grad"></div>
-				</div>
-				<div class="owl-thumb-item">
-					<div>
-						<img class="img-fluid" src="{{asset('barcut/img/testimonial/t4.png')}}" alt="">
-					</div>
-					<div class="overlay overlay-grad"></div>
-				</div>
-			</div>
+			<div class="testi-slider owl-carousel" data-slider-id="1"></div>
+
+			<div class="owl-thumbs d-flex justify-content-center" data-slider-id="1"></div>
 		</div>
 	</section>
 	<!--================End Testimonials Area =================-->
@@ -539,7 +494,39 @@
 			})
 		}
 
-
+		function comment_fn(){
+			let tag_name = ''
+			let owl_thumbs = ''
+			let commentData = '<?php echo $comment_data?>'
+			jsonData = JSON.parse(commentData)
+			let starVar = '<ul class="list"><li><a href="#"><i class="fa fa-star"></i></a></li><li><a href="#"><i class="fa fa-star"></i></a></li><li><a href="#"><i class="fa fa-star"></i></a></li><li><a href="#"><i class="fa fa-star"></i></a></li><li><a href="#"><i class="fa fa-star"></i></a></li></ul>'
+			for(let i=0 ; i<jsonData.length ; i++){
+				tag_name += '<div class="item">';
+					tag_name += '<div class="testi-item">';
+					tag_name += '<h4>'+jsonData[i].shop_name+'</h4>';
+					tag_name += starVar;
+					tag_name += '<div class="wow fadeIn" data-wow-duration="5s"> ';
+					tag_name += '<p>'+jsonData[i].message+'</p>';
+					tag_name += '</div>';
+					tag_name += '</div>';
+				tag_name += '</div>';
+			}
+			for(let j=0 ; j<jsonData.length ; j++){
+				let active = ''
+				if(j == 0){
+					active = 'active'
+				}
+				owl_thumbs += '<div class="owl-thumb-item '+active+'">';
+					owl_thumbs += '<div>';
+						owl_thumbs += '<img class="img-fluid" src="barcut/img/testimonial/t'+(j+1)+'.png" alt="">';
+						owl_thumbs += '<div class="overlay overlay-grad"></div>';
+					owl_thumbs += '</div>';
+				owl_thumbs += '</div>';
+			}
+			$('.testi-slider').html(tag_name)
+			$('.owl-thumbs').html(owl_thumbs)
+		}
+		comment_fn()
 	</script>
 @endsection
     

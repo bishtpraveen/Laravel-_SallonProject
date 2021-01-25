@@ -1,36 +1,42 @@
 @extends('service_provider.sp_layout')
 @section('s_p-menu')
-    
+<style>
+
+    .footer-copyright-area{
+        bottom:inherit !important;
+    }
+
+</style>
 
 <!-- Breadcomb area Start-->
 <div class="breadcomb-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="breadcomb-list">
-						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="breadcomb-wp">
-									<div class="breadcomb-icon">
-										<i class="notika-icon notika-form"></i>
-									</div>
-									<div class="breadcomb-ctn">
-										<h2>Shop Form Section</h2>
-										<p>Please Place Details about your Saloon<span class="bread-ntd"></span></p>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-								<div class="breadcomb-report">
-									<button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-form"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h2>Shop Form Section</h2>
+                                    <p>Please Place Details about your Saloon<span class="bread-ntd"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                            <div class="breadcomb-report">
+                                <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 	<!-- Breadcomb area End-->
     <!-- Form Element area Start-->
     <div class="form-element-area">
@@ -43,10 +49,10 @@
                             <!-- <h2>Input Text</h2>
                             <p>Text Inputs with different sizes by height(<code>.input-sm, .input-lg</code>) and column.</p> -->
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding:30px">
                             <!-- <h3 class="well"></h3> -->
                         <!--shop form -->
-                            <form method="post" action="{{url('shop_register')}}" enctype="multipart/form-data">
+                            <form method="post" action="{{url('shop_register')}}"  enctype="multipart/form-data">
                                 @csrf()
                                     <div class="row">
                                         <!-- owner name -->

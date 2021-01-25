@@ -101,3 +101,5 @@ Route::get('/google_callback', 'SocialAuthGoogleControllerController@callback');
 
 
 Route::post('/paytm-callback', 'user_dashboard@paytmCallback');
+
+Route::get('/check_time', 'user_dashboard@check_time');

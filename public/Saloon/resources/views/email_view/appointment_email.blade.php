@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-12 text-center">
-            <img src="{{asset('barcut/img/logo.png')}}" style='width:12%;height:100%' alt="">
+            <img src="{{barcut/img/logo_png.png')}}" style='width:12%;height:100%' alt="">
         </div>
         <div class="col-md-8 mx-auto mt-4 text-center  p-3">
             <h4>Dear {{$username}}.</h4>

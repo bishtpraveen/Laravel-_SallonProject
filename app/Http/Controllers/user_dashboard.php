@@ -113,9 +113,9 @@ class user_dashboard extends Controller
           ]);
         $appointment_query = new appointment();
         $data = request()->all();
-        echo "<pre>";
-        print_r($data);
-        die();
+        // echo "<pre>";
+        // print_r($data);
+        // die();
         $appointment_query->appoint_user_name = $data['appoint_user_name'];
         $appointment_query->appoint_user_email = $data['appoint_user_email'];
         $appointment_query->appoint_user_contact = $data['appoint_user_contact'];
@@ -152,6 +152,18 @@ class user_dashboard extends Controller
         $get_shop_info_query_all = shop_info::distinct('images')->pluck('images','specillaty_service');
         return view('gallery_page')->with('shop_navbar_info',$get_shop_info_query_all)->with('all_shop',$shop_get_all_query);
         
+    }
+
+    public function check_time(Request $request){
+        $currenttime = time() + 100*100;
+        $inpTime = strtotime($request->inputTime) ; 
+        // echo $currenttime.'<br>';
+        // echo $inpTime;
+        if($currenttime > $inpTime){
+            echo 'not_valid_time';
+        }else{
+            echo 'valid_time';
+        }
     }
 
 

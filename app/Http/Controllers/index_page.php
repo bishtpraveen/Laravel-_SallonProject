@@ -21,7 +21,8 @@ class index_page extends Controller
     {
         $session_email = Session::get('register_email');
         $cookie_email = Cookie::get('register_email');
-        $get_shop_info_query_all = shop_info::where('user_type','sfh')->distinct('images')->pluck('images','specillaty_service');
+        $get_shop_info_query_all = shop_info::distinct('images')->pluck('images','specillaty_service');
+        $distinct_images = shop_info::where('user_type','sh')->distinct('images')->pluck('images','specillaty_service');
         $get_shop_info_price = shop_info::latest('created_at')->take(3)->get();
         $get_shop_info_blog = shop_info::latest('created_at')->take(4)->get();
         $get_comment_query = comment::latest('created_at')->take(4)->get();
@@ -30,19 +31,20 @@ class index_page extends Controller
         // die();
         if((!$session_email) && (!$cookie_email)){
             session()->flash('Login_required','Please Login');
-            return view('index')->with('shop_navbar_info',$get_shop_info_query_all)->with('shop_price',$get_shop_info_price)->with('comment_data',$get_comment_query)->with('shop_blog',$get_shop_info_blog);
+            return view('index')->with('distinct_images',$distinct_images)->with('shop_navbar_info',$get_shop_info_query_all)->with('shop_price',$get_shop_info_price)->with('comment_data',$get_comment_query)->with('shop_blog',$get_shop_info_blog);
         }else{
-            $verify_email = verify_email::where(['status'=>'no_verified'])->where('user_email',$session_email)->orWhere('user_email',$cookie_email)->exists();
-            if($verify_email == 1){
+            $verify_email = register::where('email',$session_email)->orWhere('email',$cookie_email)->first();
+            // echo $verify_email;die();
+            if($verify_email->email_verify == '' || $verify_email->email_verify == null ){
                 Session::flush();
                 Cookie::queue(Cookie::forget('register_email'));
                 session()->flash('Please_verify_first','Your Email is not verified. Please verify it. We have send a verification mail to your registered mail.');
-                return redirect('/')->with('shop_navbar_info',$get_shop_info_query_all)->with('shop_price',$get_shop_info_price)->with('comment_data',$get_comment_query)->with('shop_blog',$get_shop_info_blog);
+                return redirect('/')->with('distinct_images',$distinct_images)->with('shop_navbar_info',$get_shop_info_query_all)->with('shop_price',$get_shop_info_price)->with('comment_data',$get_comment_query)->with('shop_blog',$get_shop_info_blog);
             }else{
                 $verify_email_delete = verify_email::where('user_email',$session_email)->orWhere('user_email',$cookie_email)->delete();
                 $register_check = register::where('email',$session_email)->orWhere('email',$cookie_email)->first();
                 if($register_check->user_type == 'user'){
-                    return view('index')->with('shop_navbar_info',$get_shop_info_query_all)->with('shop_price',$get_shop_info_price)->with('comment_data',$get_comment_query)->with('shop_blog',$get_shop_info_blog);
+                    return view('index')->with('distinct_images',$distinct_images)->with('shop_navbar_info',$get_shop_info_query_all)->with('shop_price',$get_shop_info_price)->with('comment_data',$get_comment_query)->with('shop_blog',$get_shop_info_blog);
                 }else{
                     return redirect('s_p-index');
                 }

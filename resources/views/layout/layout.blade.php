@@ -7,7 +7,7 @@
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="{{asset('barcut/img/fav.png')}}">
 	<!-- Author Meta -->
-	<meta name="author" content="SachTech Solution  Pvt Ltd">
+	<meta name="author" content="Robin Singh">
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
@@ -103,7 +103,7 @@
 						<a class="{{ 'gallery'  == request()->path() ?  'active' : ''}}" href="{{url('gallery')}}">gallery</a>
 					</div>
 					<div class="col-3 logo">
-						<a href="{{url('/')}}"><img class="mx-auto" src="{{asset('barcut/img/logo.png')}}" alt=""></a>
+						<a href="{{url('/')}}"><img class="mx-auto" src="{{asset('barcut/img/logo_png.png')}}" alt=""></a>
 					</div>
 					<nav class="col navbar navbar-expand-lg justify-content-end">
 
@@ -173,7 +173,7 @@
 					</nav>
 				</div>
 			</div>
-			<div class="wrap">
+			<!-- <div class="wrap">
 				<input placeholder='Search for shop...' class='js-search' type="text">
 				<i class="fa fa-search"></i>
 			<div class="search_output">
@@ -192,7 +192,7 @@
 				</tbody>
 			</table>
 			</div>
-			</div>
+			</div> -->
 		</div>
 	</header>
     <!--================ End Header Area =================-->
@@ -224,14 +224,6 @@
 						</div>
 						<p>Stay updated with our latest trends</p>
 						<div id="mc_embed_signup">
-							<!-- <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
-								<div class="input-group d-flex flex-row">
-									<input name="EMAIL" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
-									 required="" type="email">
-									<button class="btn sub-btn"><span class="lnr lnr-arrow-right"></span></button>
-								</div>
-								<div class="mt-10 info"></div>
-							</form> -->
 						</div>
 					</aside>
 				</div>
@@ -255,7 +247,7 @@
 					<p>
 					Copyright &copy;<script>
 					document.write(new Date().getFullYear()); </script> 
-					All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Sachtech Solution</a>
+					All rights reserved | <a href="https://er-robin-resume.zyrosite.com/">Robin Singh</a>
 					</p>
 				</div>
 			</div>

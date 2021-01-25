@@ -54,7 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', 'https://calm-island-80350.herokuapp.com/'),
+    // 'asset_url' => env('ASSET_URL', 'https://calm-island-80350.herokuapp.com/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => env('TIME_ZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------

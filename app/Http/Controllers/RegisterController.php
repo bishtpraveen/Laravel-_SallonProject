@@ -43,16 +43,18 @@ class RegisterController extends Controller
         $number_of_digits = 30;
         $rand_number =  substr(number_format(time() * mt_rand(),0,'',''),0,$number_of_digits);
         $manual_register_query->provider_user_id = $rand_number;
-        Cookie::queue(Cookie::forget('enter_email'));
-        Cookie::queue(Cookie::forget('provider_user_id'));
-        Cookie::queue(Cookie::make('enter_email',$data['email'],100)); 
-        Cookie::queue(Cookie::make('provider_user_id',$rand_number,100)); 
+        $check_email = register::where('email',$data['email'])->exists();
+        if($check_email){
+            $manual_register_query->update();
+        }else{
+            $manual_register_query->save();
+        }
         return view('register_complete_page')->with('user_detail',$manual_register_query)->with('shop_navbar_info',$get_shop_info_query_all);
        
     }
     public function email_ajax(Request $request){
         $data = request()->all();
-        $email_check_query = register::where('email',$data['email'])->exists();
+        $email_check_query = register::where('email',$data['email'])->where('name','!=','')->where('password','!=','')->exists();
         print_r($email_check_query);
         // return  $email_check_query;
         
@@ -66,33 +68,31 @@ class RegisterController extends Controller
             // echo "<pre>";
             // print_r($data);
             // die();
-            $manual_register_query = new register();
-            $manual_register_query->email = $data['email'];
-            $manual_register_query->provider_user_id = $data['provider_user_id'];
-            $manual_register_query->name = $data['name'];
-            $manual_register_query->password = $data['password'];
-            $manual_register_query->user_type = $data['user_type'];
-            $manual_register_query->contact = $data['contact'];
-
-
-
-
-            $email_insert_query = new verify_email();
-            $email_insert_query->user_id = $data['provider_user_id'];
-            $email_insert_query->user_email = $data['email'];
-            $email_insert_query->token = $token;
+            $manual_register_query = register::where('email',$data['email'])->update(['name'=>$data['name'],'password'=>$data['password'],'user_type'=>$data['user_type'],'contact'=>$data['contact']]);
+            // $manual_register_query->email = $data['email'];
+            // $manual_register_query->provider_user_id = $data['provider_user_id'];
+            // $manual_register_query->name = $data['name'];
+            // $manual_register_query->password = $data['password'];
+            // $manual_register_query->user_type = $data['user_type'];
+            // $manual_register_query->contact = $data['contact'];
             if($request->hasFile('image'))
             {
                 $image = $request->file('image');
                 $filename =  rand().time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path().'/profile_image/',$filename);
-                // echo "<pre>";
-                // print_r($name);
-                // die(); 
+                $image->move(public_path().'/profile_image/',$filename); 
+                register::where('email',$data['email'])->update(['profile_image'=>$filename]);
             }
-            $manual_register_query->profile_image = $filename;
-            $manual_register_query->save();
+            
+            $email_insert_query = new verify_email();
+            $email_insert_query->user_id = $data['provider_user_id'];
+            $email_insert_query->user_email = $data['email'];
+            $email_insert_query->token = $token;
             $email_insert_query->save();
+
+
+            
+            // $manual_register_query->profile_image = $filename;
+            // $manual_register_query->update();
             $mail_send_array = array('user_name'=>$data['name'],'user_mail'=>$data['email'],'token'=>$token);
             Mail::send('email_view.verify_email',$mail_send_array,function($m) use ($mail_send_array){
                 $m->to($mail_send_array['user_mail'])->subject($mail_send_array['token']);

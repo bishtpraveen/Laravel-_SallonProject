@@ -194,6 +194,11 @@
 
 </style>
 <!--================ Start banner Area =================-->
+@php
+	$uri_path = $_SERVER['REQUEST_URI']; 
+ 	$uri_parts = explode('/', $uri_path);
+ 	$request_url = end($uri_parts);
+@endphp
 
 
 <section class="banner-area relative">
@@ -206,23 +211,29 @@
 			<p>
 				<a href="{{url('/')}}">home</a>
 				<span class="lnr lnr-arrow-right"></span>
-				<a href="#">Blog</a>
-				<span class="lnr lnr-arrow-right"></span>
-				<a href="#">Details</a>
+				<a href="#">Specilty Service</a>
 			</p>
 		</div>
-		<h1>Blog Details</h1>
+		<h1>{{urldecode($request_url)}}</h1>
 	</div>
 </section>
+
 	<!--================ End banner Area =================-->
-	@if($errors->any())
-    <div class="alert alert-danger">
-        <p><strong>Opps Some fields are missing in your appointment form</strong></p>
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
+@if($errors->any())
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <div class="toast fade show" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+            <strong class="mr-auto">Opps Some fields are missing in your appointment form</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            @foreach ($errors->all() as $error)
+                <div class="toast-body">
+                    <span class='text-danger'>{{ $error }}</span>
+                </div>
+            @endforeach
+        </div>
     </div>
 @endif
 	<!-- Start post-content Area -->
@@ -627,33 +638,57 @@
 
 	$(function(){
 		$('#appoint_time').blur(function(){
-			$('.datepicker').blur(function(){
-				let date = $(this).val();
-				let shop_appoint_email = $('#shop_appoint_email').val();
-				let shop_appoint_id = $('#shop_appoint_id').val();
-				let appoint_time = $('#appoint_time').val();
-				if(date == '' || appoint_time == '' ){
-					alert('date time is required')
-					return false
+			let inputTime = $('#appoint_time').val();
+			if(inputTime == ''){
+				$('.error').removeClass('bg-success').addClass('bg-danger').addClass('text-center').addClass('text-white');
+				$('.error').html('Please fill time then choose date')
+				return false;
+			}
+			$.ajax({
+				url:'{{url("check_time")}}',
+				type:'get',
+				data:{inputTime:inputTime},
+				success:function(data){
+					if(data == 'not_valid_time'){
+						$('.error').removeClass('bg-success').addClass('bg-danger').addClass('text-center').addClass('text-white');
+						$('.error').html('This Time is not valid')
+						$('#appoint_submit').attr('disabled',true);
+						$('#appoint_date').attr('disabled',true);
+					}else{
+						$('.error').removeClass('bg-danger').addClass('bg-success').addClass('text-center').addClass('text-white');
+						$('.error').html('You can choose this time')
+						$('#appoint_submit').attr('disabled',false);
+						$('#appoint_date').attr('disabled',false);
+					}	
 				}
-				// alert(shop_appoint_email);
-				$.ajax({
-					url:'{{url("appoint_check")}}',
-					type:'get',
-					data:{date:date,shop_appoint_email:shop_appoint_email,appoint_time:appoint_time,shop_appoint_id:shop_appoint_id},
-					success:function(data){
-						if(data == 'exists'){
-							$('.error').removeClass('bg-success').addClass('bg-danger').addClass('text-center').addClass('text-white');
-							$('.error').html('Please choose some other date and time. This appointment is taken')
-							$('#appoint_submit').attr('disabled',true);
-						}else{
-							$('.error').removeClass('bg-danger').addClass('bg-success').addClass('text-center').addClass('text-white');
-							$('.error').html('You can choose this Date and time')
-							$('#appoint_submit').attr('disabled',false);
-						}	
-					}
-				})
 			})
+		})
+	})
+	$('.datepicker').blur(function(){
+		let date = $(this).val();
+		let shop_appoint_email = $('#shop_appoint_email').val();
+		let shop_appoint_id = $('#shop_appoint_id').val();
+		let appoint_time = $('#appoint_time').val();
+		if(date == '' || appoint_time == '' ){
+			alert('date time is required')
+			return false
+		}
+		// alert(shop_appoint_email);
+		$.ajax({
+			url:'{{url("appoint_check")}}',
+			type:'get',
+			data:{date:date,shop_appoint_email:shop_appoint_email,appoint_time:appoint_time,shop_appoint_id:shop_appoint_id},
+			success:function(data){
+				if(data == 'exists'){
+					$('.error').removeClass('bg-success').addClass('bg-danger').addClass('text-center').addClass('text-white');
+					$('.error').html('Please choose some other date. The appointment is taken at this dates')
+					$('#appoint_submit').attr('disabled',true);
+				}else{
+					$('.error').removeClass('bg-danger').addClass('bg-success').addClass('text-center').addClass('text-white');
+					$('.error').html('You can choose this Date')
+					$('#appoint_submit').attr('disabled',false);
+				}	
+			}
 		})
 	})
 
@@ -703,7 +738,7 @@
 				<input type="hidden" placeholder='Appointment Time' class='form-control' name='shop_appoint_email' id='shop_appoint_email'>
 				<input type="hidden" placeholder='Appointment Time' class='form-control' name='shop_appoint_name' id='shop_appoint_name'>
 				<label for="">Appoint Date</label>
-				<input type="date" min='{{$today_date}}' max='{{$last_date}}'   name='appoint_date' id='appoint_date' class='form-control datepicker' >
+				<input type="date" min='{{$today_date}}' max='{{$last_date}}'   name='appoint_date' id='appoint_date' class='form-control datepicker' disabled>
 				<!-- <input type="date" placeholder='date' name='appoint_date' min="2020-05-1" max='2020-06-30' value='Date()' class='form-control  ' > -->
 				<!-- <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
 					<input class="form-control" type="text" name='appoint_date' id='appoint_date'/>

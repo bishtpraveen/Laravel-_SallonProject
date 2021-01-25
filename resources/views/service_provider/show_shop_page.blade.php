@@ -1,7 +1,13 @@
 @extends('service_provider.sp_layout')
 @section('s_p-menu')
 
+<style>
 
+    .footer-copyright-area{
+        bottom:inherit !important;
+    }
+
+</style>
 
 
 

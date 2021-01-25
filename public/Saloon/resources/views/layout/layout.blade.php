@@ -7,7 +7,7 @@
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="{{asset('barcut/img/fav.png')}}">
 	<!-- Author Meta -->
-	<meta name="author" content="SachTech Solution  Pvt Ltd">
+	<meta name="author" content="Robin Singh">
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
@@ -103,7 +103,7 @@
 						<a class="{{ 'gallery'  == request()->path() ?  'active' : ''}}" href="{{url('gallery')}}">gallery</a>
 					</div>
 					<div class="col-3 logo">
-						<a href="{{url('/')}}"><img class="mx-auto" src="{{asset('barcut/img/logo.png')}}" alt=""></a>
+						<a href="{{url('/')}}"><img class="mx-auto" src="{{barcut/img/logo_png.png')}}" alt=""></a>
 					</div>
 					<nav class="col navbar navbar-expand-lg justify-content-end">
 
@@ -255,7 +255,7 @@
 					<p>
 					Copyright &copy;<script>
 					document.write(new Date().getFullYear()); </script> 
-					All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Sachtech Solution</a>
+					All rights reserved | <a href="https://er-robin-resume.zyrosite.com/">Robin Singh</a>
 					</p>
 				</div>
 			</div>

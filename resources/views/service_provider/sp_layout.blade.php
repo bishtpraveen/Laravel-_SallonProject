@@ -76,7 +76,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="logo-area">
                         <!-- <a href="#"><img src="{{asset('service_provider/img/logo/logo.png')}}" alt="" /></a> -->
-                        <a href="{{url('/')}}"><img src="{{asset('barcut/img/logo.png')}}" alt="" /></a>
+                        <a href="{{url('/')}}"><img src="{{asset('barcut/img/logo_png.png')}}" style="width:25%" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -654,7 +654,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="footer-copy-right text-dark" >
-                        <p>Copyright © 2018 All rights reserved. Template by <a href="#">Sachtech Solution</a>.</p>
+                        <p>Copyright © 2021 All rights reserved. <a href="https://er-robin-resume.zyrosite.com/">Robin Singh</a></p>
                     </div>
                 </div>
             </div>

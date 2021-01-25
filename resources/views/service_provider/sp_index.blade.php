@@ -16,7 +16,7 @@
         $session =  session::get('user_type');
         $cookie  =  cookie::get('user_type');
     @endphp
-    @if($session or $cookie == 'sh')
+    @if($session =='sh' || $cookie == 'sh')
     <!-- saloon servide -->
         <div class="row">
             @if(session()->has('shop_data_update'))
@@ -53,12 +53,12 @@
                         <h2><span class="counter">{{$shop_count}}</span></h2>
                         <p>Total Shop's</p>
                     </div>
-                    <div class="sparkline-bar-stats3">4,2,8,2,5,6,3,8,3,5,9,5</div>
+                    <!-- <div class="sparkline-bar-stats3">4,2,8,2,5,6,3,8,3,5,9,5</div> -->
                 </div>
             </div>
         </div>
     <!-- saloon servide end -->
-        @elseif($session or $cookie == 'sfh')
+        @elseif($session =='sfh' || $cookie == 'sfh')
     <!-- service from home -->
         <div class="row">
             <!-- <div class='notification-demo' >
@@ -196,7 +196,7 @@
                                 <i class="notika-icon notika-house"></i>
                             </div>
                             <div class="nk-int-st">
-                                <input type="text" class="form-control" name='shop_name' placeholder="Shop Name" required>
+                                <input type="text" class="form-control" name='shop_name' placeholder="Location Name" required>
                             </div>
                     </div>
                     <!-- shop name end -->
@@ -206,7 +206,7 @@
                             <i class="notika-icon notika-support"></i>
                         </div>
                         <div class="nk-int-st">
-                            <input type="text" class="form-control" name='owner_name' placeholder="Owner Name" required> 
+                            <input type="text" class="form-control" name='owner_name' placeholder="Provider Name" required> 
                         </div>
                     </div>
                     <!-- owner name end -->
@@ -264,7 +264,7 @@
                             <i class="notika-icon notika-phone"></i>
                         </div>
                         <div class="nk-int-st">
-                            <input type="text" pattern="[0-9]{10}" title='Please Enter Valid Phone number' class="form-control" name='shop_contact' placeholder="Add Shop Contact" required>
+                            <input type="text" pattern="[0-9]{10}" title='Please Enter Valid Phone number' class="form-control" name='shop_contact' placeholder="Add Contact" required>
                         </div>
                     </div>
                     <!-- add shop contact end -->
@@ -272,7 +272,7 @@
                     <!--shop type  -->
                         <div class="col-md-6">
                             <div class="form-group" style='margin-top:20px'>
-                                <h5>Shop Type</h5>
+                                <h5>Service Type</h5>
                                 <select name="shop_type" class='form-control' id="" required>
                                     <option value="male" >Male</option>
                                     <option value="female">Female</option>
@@ -303,7 +303,7 @@
                     <!-- add services -->
                         <!-- main div -->
                             <div class="form-group  service_main_div text-center" style='margin-top: 0px;'>
-                            <h5>Add Services for your Shop</h5>
+                            <h5>Add Services for your Location</h5>
                                 <select name="shop_services[]" class="form-control" style='width:40% !important;display:inline-block !important;' required >
                                     <option value="Basic hair Cut">Basic hair Cut </option>
                                     <option value="Basic Shave">Basic Shave</option>
@@ -567,7 +567,11 @@
                                 <th>User Email</th>
                                 <th>Appointment Date</th>
                                 <th>Appointment Time</th>
+                                @if($session =='sh' || $cookie == 'sh')
                                 <th>Shop Name</th>
+                                @elseif($session =='sfh' || $cookie == 'sfh')
+                                <th>Location Name</th>
+                                @endif
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -646,7 +650,7 @@ function latest_appointment(){
                 table += "<td>"+data[i].appoint_date+"</td>";
                 table += "<td>"+data[i].appoint_time+"</td>";
                 table += "<td>"+data[i].shop_appoint_name+"</td>";  
-                if(data[i].amount == '0')
+                if(data[i].amount == '0' || data[i].amount == null )
                 {
                     table += "<td><button class='btn btn-info btn-sm' onclick='payment_request("+data[i].id+")' >Payment Request</button> </td>";  
                 }else

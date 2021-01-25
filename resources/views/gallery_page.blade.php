@@ -27,7 +27,7 @@ $(function(){
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
                 <div class="section-title">
-                    <h1>Recent Style Images</h1>
+                    <h1>Recent Added Images</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
                     magna aliqua ad minim veniam</p>
                 </div>

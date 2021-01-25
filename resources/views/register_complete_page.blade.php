@@ -56,7 +56,7 @@
                         <!-- </div> -->
                         <br>
                         <div class="form-group mt-4" style='overflow:visible !important'>
-                            <input type="email" class="form-input" value='{{Cookie::get("enter_email")}}' readonly name="email" id="email" placeholder="Your Email"/>
+                            <input type="email" class="form-input" value='{{$user_detail->email}}' readonly name="email" id="email" placeholder="Your Email"/>
                         </div>
                         <div class="form-group" >
                             <input type="text" class="form-input" name="contact" placeholder="Contact" required />
@@ -66,13 +66,13 @@
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-input" name="password" id="password" placeholder="Password" required/>
-                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <span toggle="#password" onclick="showPassword()" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password" required/>
                         </div>
                         <div class="form-group">
-                        <input value='{{Cookie::get("provider_user_id")}}' hidden name='provider_user_id' >
+                        <input value='{{$user_detail->provider_user_id}}' hidden name='provider_user_id' >
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                             <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                         </div>
@@ -137,6 +137,21 @@
         }
     })
     // extra_fields_end
+
+    // password to text
+    function showPassword(){
+        let passType = $('#password').attr('type');
+        if(passType == 'password'){
+            $('#password').attr('type','text');
+            $('.toggle-password').removeClass('zmdi-eye');
+            $('.toggle-password').addClass('zmdi-eye-off');
+        }else{
+            $('#password').attr('type','password');
+            $('.toggle-password').removeClass('zmdi-eye-off');
+            $('.toggle-password').addClass('zmdi-eye');
+        }
+    }
+    // password to text end
 
     </script>
 <!-- custom script end -->
