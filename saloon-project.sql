@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2020 at 11:38 AM
+-- Generation Time: Jan 27, 2021 at 08:50 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -32,19 +32,27 @@ CREATE TABLE `appointments` (
   `id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `appoint_user_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `appoint_user_email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `appoint_user_contact` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `appoint_date` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `appoint_time` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_appoint_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_appoint_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_appoint_email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `payment_order_id` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `transaction_id` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT '0'
+  `appoint_user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `appoint_user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `appoint_user_contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `appoint_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `appoint_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_appoint_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_appoint_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_appoint_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_order_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `created_at`, `updated_at`, `appoint_user_name`, `appoint_user_email`, `appoint_user_contact`, `appoint_date`, `appoint_time`, `shop_appoint_name`, `shop_appoint_id`, `shop_appoint_email`, `amount`, `payment_order_id`, `transaction_id`, `status`) VALUES
+(1, '2021-01-23 13:22:03', '2021-01-23 14:15:48', 'Robin', 'robinsingh71119@gmail.com', '1234567890', '2021-01-25', '00:21', 'aaa', '1', 'testing@gmail.com', '11', '600c7c527afec', '20210124111212800110168329102321162', '1'),
+(2, '2021-01-24 12:46:38', '2021-01-24 12:47:48', 'ss', 'robinsingh71119@gmail.com', '1234567890', '2021-01-24', '22:16', 'ccc', '2', 'sfh@gmail.com', '22', '600d6c50a1dd1', '20210124111212800110168974202316114', '1');
 
 -- --------------------------------------------------------
 
@@ -60,10 +68,18 @@ CREATE TABLE `comments` (
   `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shop_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shop_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL
+  `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `created_at`, `updated_at`, `user_name`, `user_email`, `subject`, `shop_id`, `shop_name`, `shop_email`, `message`) VALUES
+(1, '2021-01-24 06:04:08', '2021-01-24 06:04:08', 'robinsingh', 'robinsingh71119@gmail.com', 'sdsad', '2', 'ccc', 'sfh@gmail.com', 'ascscscdscdscdscsdcsdcdc sd csddsfsdf'),
+(2, '2021-01-25 09:57:52', '2021-01-25 09:57:52', 'name', 'robinsingh71119@gmail.com', 'dasdad', '1', 'aaa', 'testing@gmail.com', 'sadsadadasdd');
 
 -- --------------------------------------------------------
 
@@ -78,7 +94,7 @@ CREATE TABLE `contact_forms` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shop_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -100,16 +116,16 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(73, '2014_10_12_000000_create_users_table', 1),
-(74, '2014_10_12_100000_create_password_resets_table', 1),
-(75, '2020_04_05_080752_create_registers_table', 1),
-(76, '2020_04_06_050325_create_social_auth_google_controllers_table', 1),
-(77, '2020_04_08_093627_create_verify_emails_table', 1),
-(78, '2020_04_11_084310_create_shop_infos_table', 2),
-(79, '2020_04_14_125134_create_comments_table', 3),
-(80, '2020_04_16_074912_create_appointments_table', 4),
 (81, '2020_04_20_131035_create_service_from_homes_table', 5),
-(82, '2020_05_07_125341_create_contact_forms_table', 6);
+(83, '2014_10_12_000000_create_users_table', 6),
+(84, '2014_10_12_100000_create_password_resets_table', 6),
+(85, '2020_04_05_080752_create_registers_table', 6),
+(86, '2020_04_06_050325_create_social_auth_google_controllers_table', 6),
+(87, '2020_04_08_093627_create_verify_emails_table', 6),
+(88, '2020_04_11_084310_create_shop_infos_table', 6),
+(89, '2020_04_14_125134_create_comments_table', 6),
+(90, '2020_04_16_074912_create_appointments_table', 6),
+(91, '2020_05_07_125341_create_contact_forms_table', 6);
 
 -- --------------------------------------------------------
 
@@ -138,8 +154,8 @@ CREATE TABLE `registers` (
   `provider_user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verify` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `profile_image` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `contact` varchar(13) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -148,7 +164,9 @@ CREATE TABLE `registers` (
 --
 
 INSERT INTO `registers` (`id`, `created_at`, `updated_at`, `name`, `email`, `provider_user_id`, `email_verify`, `password`, `profile_image`, `contact`, `user_type`) VALUES
-(13, '2020-12-05 02:05:29', '2020-12-05 02:06:24', 'payal', 'payal1234sharmaa@gmail.com', '2699770711341892096', 'verified', '1111', '20428658091607153729.jpg', '1234567890', 'sfh');
+(1, '2021-01-23 12:44:00', '2021-01-23 12:48:28', 'Robin', 'robinsingh71119@gmail.com', '1427126807370492416', 'verified', '1111', '17047606321611425665.jpeg', '1234567890', 'user'),
+(2, '2021-01-23 12:55:36', '2021-01-23 12:56:55', 'test', 'testing@gmail.com', '3394598358753920512', 'verified', '1111', '10548302781611426360.jpg', '1414141414', 'sh'),
+(3, '2021-01-24 05:57:12', '2021-01-24 05:58:14', 'sfh', 'sfh@gmail.com', '827703885093253248', 'verified', '1111', '705019331611487656.jpg', '1523641254', 'sfh');
 
 -- --------------------------------------------------------
 
@@ -164,17 +182,17 @@ CREATE TABLE `shop_infos` (
   `shop_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_contact` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provider_user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shop_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `employ_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `images` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_services` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shop_services_amount` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `specillaty_service` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `specillaty_service_amount` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `liked_user_email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `shop_services` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_services_amount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `specillaty_service` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `specillaty_service_amount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `liked_user_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -182,7 +200,8 @@ CREATE TABLE `shop_infos` (
 --
 
 INSERT INTO `shop_infos` (`id`, `created_at`, `updated_at`, `owner_name`, `shop_name`, `address`, `user_email`, `shop_contact`, `provider_user_id`, `shop_type`, `employ_number`, `images`, `shop_services`, `shop_services_amount`, `specillaty_service`, `specillaty_service_amount`, `user_type`, `liked_user_email`) VALUES
-(11, '2020-12-05 02:08:42', '2020-12-05 02:09:37', 'ddd', 'mm', 'dharmpur', 'payal1234sharmaa@gmail.com', '1234567890', '2699770711341892096', 'unisex', '5', '7656399011607153922guido_watching.jpg,85377031607153922gui_example.jpg,5888030551607153922guido_watching.jpg', 'Basic Body Massage,Basic Head Wash,Basic hair Cut,Basic Shave', '120,110,120,22', 'Beard Trimming', '125', 'sfh', 'alkarana1992@gmail.com');
+(1, '2021-01-23 13:09:21', '2021-01-23 14:08:04', 'abc', 'aaa', 'acacac', 'testing@gmail.com', '1234567890', '3394598358753920512', 'female', '2', 'grill.jpg,mint.jpeg,mint.jpg,pharma (1).jpg', 'Basic hair Cut,Basic Body Massage,Basic Head Wash,Basic Shave', '111,44,323,333', 'Quality Gel Shave', '122', 'sh', 'robinsingh71119@gmail.com'),
+(2, '2021-01-24 06:02:31', '2021-01-24 06:02:31', 'sss', 'ccc', 'cdcd', 'sfh@gmail.com', '1212121212', '827703885093253248', 'unisex', '2', '21005835471611487951team building rocket.png,12396718771611487951output-onlinepngtools (2).png,12219377971611487951about_us_bg.jpg', 'Basic hair Cut,Basic Head Wash,Basic Shave', '222,333,111', 'Executive Wash', '111', 'sfh', NULL);
 
 -- --------------------------------------------------------
 
@@ -298,37 +317,37 @@ ALTER TABLE `verify_emails`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `contact_forms`
 --
 ALTER TABLE `contact_forms`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `registers`
 --
 ALTER TABLE `registers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shop_infos`
 --
 ALTER TABLE `shop_infos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -340,7 +359,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `verify_emails`
 --
 ALTER TABLE `verify_emails`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
